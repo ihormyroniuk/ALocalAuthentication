@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.version      = "0.0.1"
   s.summary      = "Advanced Local Authentication."
   s.description  = "Advanced Local Authentication approach."
-  s.homepage     = "https://github.com/ihormyroniuk/AUIKit"
+  s.homepage     = "https://github.com/ihormyroniuk/ALocalAuthentication"
 
   s.license      = "MIT"
 
