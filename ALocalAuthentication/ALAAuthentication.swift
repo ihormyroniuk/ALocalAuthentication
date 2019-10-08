@@ -35,6 +35,8 @@ public enum ALAAuthenticationResult {
   case error(Error)
 }
 
+public typealias ALAAuthenticationCustomization = (reason: String, cancelTitle: String?, fallbackTitle: String?)
+
 public protocol ALAAuthentication {
   
   // MARK: Biometry

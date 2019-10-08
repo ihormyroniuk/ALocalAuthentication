@@ -89,16 +89,15 @@ open class ALADefaultAuthentication: ALAAuthentication {
   
   // MARK: Authentication
   
-  open func authenticate(_ method: ALAAuthenticationMethod, onComplete completion: @escaping (ALAAuthenticationResult) -> Void) {
+  open func authenticate(method: ALAAuthenticationMethod, customization: ALAAuthenticationCustomization, onComplete completion: @escaping (ALAAuthenticationResult) -> Void) {
     context = LAContext()
-    context.localizedCancelTitle = "title for the cancel button"
+    context.localizedCancelTitle = customization.cancelTitle
     if #available(iOS 11, *) {
-      context.localizedReason = "Log in to your account"//"explanation for authentication"
+      context.localizedReason = customization.reason
     }
-    context.localizedFallbackTitle = "title for the fallback button"
+    context.localizedFallbackTitle = customization.fallbackTitle
     let policy: LAPolicy = method == .biometryOrPasscode ? .deviceOwnerAuthentication : .deviceOwnerAuthenticationWithBiometrics
-    context.evaluatePolicy(policy, localizedReason: "Log in to your account") { [weak self] (isSuccess, error) in
-      //guard let strongSelf = self else { return }
+    context.evaluatePolicy(policy, localizedReason: customization.reason) { (isSuccess, error) in
       let result: ALAAuthenticationResult
       if isSuccess {
         result = .success
