@@ -9,67 +9,66 @@
 import Foundation
 import LocalAuthentication
 
-class ALADefaultAuthentication: ALAAuthentication {
+open class ALADefaultAuthentication: ALAAuthentication {
   
   // MARK: Data
   
   private var context = LAContext()
   
-  // MARK: Delegates
+  // MARK: Initializer
   
-  weak var userCancelDelegate: ALAAuthenticationUserCancelDelegate?
-  weak var userFallbackDelegate: ALAAuthenticationUserFallbackDelegate?
-  
-  weak var operatingSystemCancelDelegate: ALAAuthenticationOperatingSystemCancelDelegate?
+  public init() {
+    
+  }
   
   // MARK: Support
   
-  func isMethodSupported(_ method: ALAAuthenticationMethod) -> Bool {
+  open func isMethodSupported(_ method: ALAAuthenticationMethod) -> Bool {
     let unavailableReason = isMethodUnavailable(method)
     return unavailableReason != .notSupported
   }
   
   // MARK: Set Up
   
-  func isMethodSetUp(_ method: ALAAuthenticationMethod) -> Bool {
+  open func isMethodSetUp(_ method: ALAAuthenticationMethod) -> Bool {
     let unavailableReason = isMethodUnavailable(method)
     return unavailableReason != .notSetUp && unavailableReason != .notSupported
   }
   
   // MARK: Lockout
   
-  func isMethodLockout(_ method: ALAAuthenticationMethod) -> Bool {
+  open func isMethodLockout(_ method: ALAAuthenticationMethod) -> Bool {
     let unavailableReason = isMethodUnavailable(method)
     return unavailableReason == .lockout
   }
   
   // MARK: Availability
   
-  func isMethodAvailable(_ method: ALAAuthenticationMethod) -> Bool {
+  open func isMethodAvailable(_ method: ALAAuthenticationMethod) -> Bool {
     let policy: LAPolicy = method == .biometryOrPasscode ? .deviceOwnerAuthentication : .deviceOwnerAuthenticationWithBiometrics
     let canEvaluatePolicy = context.canEvaluatePolicy(policy, error: nil)
     return canEvaluatePolicy
   }
   
-  func isMethodUnavailable(_ method: ALAAuthenticationMethod) -> ALAAuthenticationMethodUnavailableReason? {
+  open func isMethodUnavailable(_ method: ALAAuthenticationMethod) -> ALAAuthenticationMethodUnavailableReason? {
     let policy: LAPolicy = method == .biometryOrPasscode ? .deviceOwnerAuthentication : .deviceOwnerAuthenticationWithBiometrics
     var error: NSError?
     let canEvaluatePolicy = context.canEvaluatePolicy(policy, error: &error)
     if !canEvaluatePolicy {
       if let laError = error as? LAError {
-        if LAError.passcodeNotSet == laError.code { return .notSetUp }
-        else if LAError.touchIDNotAvailable == laError.code {
-          if #available(iOS 11, *) { return .denied }
-          return .notSupported
+        if #available(iOS 11, *), #available(iOS 12, *), #available(iOS 13, *) {
+          if LAError.passcodeNotSet == laError.code { return .notSetUp }
+          else if LAError.biometryNotAvailable == laError.code { return .notSupported }
+          else if LAError.touchIDNotAvailable == laError.code { return .denied }
+          else if LAError.biometryNotEnrolled == laError.code { return .notSetUp }
+          else if LAError.biometryLockout == laError.code { return .lockout }
         }
-        else if #available(iOS 11, *), LAError.biometryNotAvailable == laError.code {
-          if context.biometryType == .faceID { return .denied }
-          return .notSupported
+        if #available(iOS 10, *) {
+          if LAError.passcodeNotSet == laError.code { return .notSetUp }
+          else if LAError.touchIDNotAvailable == laError.code { return .notSupported }
+          else if LAError.touchIDNotEnrolled == laError.code {return .notSetUp }
+          else if LAError.touchIDLockout == laError.code { return .lockout }
         }
-        else if LAError.touchIDNotEnrolled == laError.code {return .notSetUp }
-        else if #available(iOS 11, *), LAError.biometryNotEnrolled == laError.code { return .notSetUp }
-        else if LAError.touchIDLockout == laError.code { return .lockout }
-        else if #available(iOS 11, *), LAError.biometryLockout == laError.code { return .lockout }
       }
     }
     return nil
@@ -77,7 +76,7 @@ class ALADefaultAuthentication: ALAAuthentication {
   
   // MARK: Biometry
   
-  var supportedBiometryType: ALAAuthenticationBiometryType? {
+  open var supportedBiometryType: ALAAuthenticationBiometryType? {
     if isMethodSupported(.biometry) {
       if #available(iOS 11, *) {
         return context.biometryType == .faceID ? .face : .fingerprint
@@ -90,26 +89,17 @@ class ALADefaultAuthentication: ALAAuthentication {
   
   // MARK: Authentication
   
-  enum AuthenticationResult {
-    case success
-    case canceledByUser
-    case canceledByApplication
-    case canceledByOperatingSystem
-    case fallback
-    case failed
-    case error(Error)
-  }
-  func authenticate(_ method: ALAAuthenticationMethod, onComplete completion: @escaping (AuthenticationResult) -> Void) {
+  open func authenticate(_ method: ALAAuthenticationMethod, onComplete completion: @escaping (ALAAuthenticationResult) -> Void) {
     context = LAContext()
-    context.localizedCancelTitle = nil//"title for the cancel button"
+    context.localizedCancelTitle = "title for the cancel button"
     if #available(iOS 11, *) {
       context.localizedReason = "Log in to your account"//"explanation for authentication"
     }
-    context.localizedFallbackTitle = nil//"title for the fallback button"
+    context.localizedFallbackTitle = "title for the fallback button"
     let policy: LAPolicy = method == .biometryOrPasscode ? .deviceOwnerAuthentication : .deviceOwnerAuthenticationWithBiometrics
     context.evaluatePolicy(policy, localizedReason: "Log in to your account") { [weak self] (isSuccess, error) in
-      guard let strongSelf = self else { return }
-      let result: AuthenticationResult
+      //guard let strongSelf = self else { return }
+      let result: ALAAuthenticationResult
       if isSuccess {
         result = .success
       } else {
@@ -119,15 +109,10 @@ class ALADefaultAuthentication: ALAAuthentication {
             else if LAError.userCancel == laError.code { result = .canceledByUser }
             else if LAError.appCancel == laError.code { result = .canceledByApplication }
             else if LAError.systemCancel == laError.code { result = .canceledByOperatingSystem }
-              
             else if LAError.userFallback == laError.code { result = .fallback }
-              
-            else if LAError.userCancel == laError.code {
-              strongSelf.userFallbackDelegate?.didUserFallbackAuthentication(strongSelf)
-              result = .canceledByUser
+            else {
+              result = .error(error)
             }
-              
-            else { result = .error(error) }
           } else {
             result = .error(error)
           }

@@ -8,44 +8,37 @@
 
 import Foundation
 
-protocol ALAAuthenticationUserCancelDelegate: class {
-  func didUserCancelAuthentication(_ authentication: ALAAuthentication)
-}
-
-protocol ALAAuthenticationUserFallbackDelegate: class {
-  func didUserFallbackAuthentication(_ authentication: ALAAuthentication)
-}
-
-protocol ALAAuthenticationApplicationCancelDelegate: class {
-  func didOperatingApplicationCancelAuthentication(_ authentication: ALAAuthentication)
-}
-
-protocol ALAAuthenticationOperatingSystemCancelDelegate: class {
-  func didOperatingSystemCancelAuthentication(_ authentication: ALAAuthentication)
-}
-
-enum ALAAuthenticationMethod {
+public enum ALAAuthenticationMethod {
   case biometry
   case biometryOrPasscode
 }
 
-enum ALAAuthenticationBiometryType {
+public enum ALAAuthenticationBiometryType {
   case fingerprint
   case face
 }
 
-enum ALAAuthenticationMethodUnavailableReason {
+public enum ALAAuthenticationMethodUnavailableReason {
   case notSupported
   case notSetUp
   case lockout
   case denied
 }
 
-protocol ALAAuthentication {
-  var userFallbackDelegate: ALAAuthenticationUserFallbackDelegate? { get set }
-  var userCancelDelegate: ALAAuthenticationUserCancelDelegate? { get set }
+public enum ALAAuthenticationResult {
+  case success
+  case canceledByUser
+  case canceledByApplication
+  case canceledByOperatingSystem
+  case fallback
+  case failed
+  case error(Error)
+}
+
+public protocol ALAAuthentication {
   
   // MARK: Biometry
   
   var supportedBiometryType: ALAAuthenticationBiometryType? { get }
+  
 }
