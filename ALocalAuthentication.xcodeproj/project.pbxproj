@@ -7,12 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3386685B236314790071A2C8 /* ALocalAuthenticationUnitTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3386685A236314790071A2C8 /* ALocalAuthenticationUnitTesting.swift */; };
+		3386685D236314790071A2C8 /* ALocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54E570722BB860D00BFC08A /* ALocalAuthentication.framework */; };
 		C54E570C22BB860D00BFC08A /* ALocalAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = C54E570A22BB860D00BFC08A /* ALocalAuthentication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C54E571722BB861C00BFC08A /* ALAAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54E571322BB861C00BFC08A /* ALAAuthentication.swift */; };
 		C54E571822BB861C00BFC08A /* ALADefaultAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54E571422BB861C00BFC08A /* ALADefaultAuthentication.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3386685E236314790071A2C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C54E56FE22BB860D00BFC08A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C54E570622BB860D00BFC08A;
+			remoteInfo = ALocalAuthentication;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		33866858236314790071A2C8 /* ALocalAuthenticationUnitTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALocalAuthenticationUnitTesting.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3386685A236314790071A2C8 /* ALocalAuthenticationUnitTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALocalAuthenticationUnitTesting.swift; sourceTree = "<group>"; };
+		3386685C236314790071A2C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C54E570722BB860D00BFC08A /* ALocalAuthentication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ALocalAuthentication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54E570A22BB860D00BFC08A /* ALocalAuthentication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALocalAuthentication.h; sourceTree = "<group>"; };
 		C54E570B22BB860D00BFC08A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -21,6 +36,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		33866855236314790071A2C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3386685D236314790071A2C8 /* ALocalAuthentication.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C54E570422BB860D00BFC08A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -31,10 +54,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33866859236314790071A2C8 /* ALocalAuthenticationUnitTesting */ = {
+			isa = PBXGroup;
+			children = (
+				3386685A236314790071A2C8 /* ALocalAuthenticationUnitTesting.swift */,
+				3386685C236314790071A2C8 /* Info.plist */,
+			);
+			path = ALocalAuthenticationUnitTesting;
+			sourceTree = "<group>";
+		};
 		C54E56FD22BB860D00BFC08A = {
 			isa = PBXGroup;
 			children = (
 				C54E570922BB860D00BFC08A /* ALocalAuthentication */,
+				33866859236314790071A2C8 /* ALocalAuthenticationUnitTesting */,
 				C54E570822BB860D00BFC08A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				C54E570722BB860D00BFC08A /* ALocalAuthentication.framework */,
+				33866858236314790071A2C8 /* ALocalAuthenticationUnitTesting.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +106,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		33866857236314790071A2C8 /* ALocalAuthenticationUnitTesting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 33866862236314790071A2C8 /* Build configuration list for PBXNativeTarget "ALocalAuthenticationUnitTesting" */;
+			buildPhases = (
+				33866854236314790071A2C8 /* Sources */,
+				33866855236314790071A2C8 /* Frameworks */,
+				33866856236314790071A2C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3386685F236314790071A2C8 /* PBXTargetDependency */,
+			);
+			name = ALocalAuthenticationUnitTesting;
+			productName = ALocalAuthenticationUnitTesting;
+			productReference = 33866858236314790071A2C8 /* ALocalAuthenticationUnitTesting.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C54E570622BB860D00BFC08A /* ALocalAuthentication */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C54E570F22BB860D00BFC08A /* Build configuration list for PBXNativeTarget "ALocalAuthentication" */;
@@ -96,9 +148,13 @@
 		C54E56FE22BB860D00BFC08A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Ihor Myroniuk";
 				TargetAttributes = {
+					33866857236314790071A2C8 = {
+						CreatedOnToolsVersion = 11.1;
+					};
 					C54E570622BB860D00BFC08A = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
@@ -111,6 +167,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C54E56FD22BB860D00BFC08A;
 			productRefGroup = C54E570822BB860D00BFC08A /* Products */;
@@ -118,11 +175,19 @@
 			projectRoot = "";
 			targets = (
 				C54E570622BB860D00BFC08A /* ALocalAuthentication */,
+				33866857236314790071A2C8 /* ALocalAuthenticationUnitTesting */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		33866856236314790071A2C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C54E570522BB860D00BFC08A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,6 +198,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		33866854236314790071A2C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3386685B236314790071A2C8 /* ALocalAuthenticationUnitTesting.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C54E570322BB860D00BFC08A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,7 +217,53 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3386685F236314790071A2C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C54E570622BB860D00BFC08A /* ALocalAuthentication */;
+			targetProxy = 3386685E236314790071A2C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		33866860236314790071A2C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M4U9YFW795;
+				INFOPLIST_FILE = ALocalAuthenticationUnitTesting/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.ihormyroniuk.ALocalAuthenticationUnitTesting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		33866861236314790071A2C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M4U9YFW795;
+				INFOPLIST_FILE = ALocalAuthenticationUnitTesting/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.ihormyroniuk.ALocalAuthenticationUnitTesting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C54E570D22BB860D00BFC08A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -274,7 +393,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 6HRD7URR3P;
+				DEVELOPMENT_TEAM = M4U9YFW795;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -302,7 +421,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 6HRD7URR3P;
+				DEVELOPMENT_TEAM = M4U9YFW795;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -325,6 +444,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		33866862236314790071A2C8 /* Build configuration list for PBXNativeTarget "ALocalAuthenticationUnitTesting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33866860236314790071A2C8 /* Debug */,
+				33866861236314790071A2C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C54E570122BB860D00BFC08A /* Build configuration list for PBXProject "ALocalAuthentication" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
